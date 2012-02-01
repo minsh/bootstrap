@@ -165,8 +165,8 @@
     }
 
   , keyup: function (e) {
-      e.stopPropagation()
-      e.preventDefault()
+      //e.stopPropagation()
+      //e.preventDefault()
 
       switch(e.keyCode) {
         case 40: // down arrow

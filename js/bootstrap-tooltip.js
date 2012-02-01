@@ -98,6 +98,7 @@
     }
 
   , show: function () {
+      showlog('tooltip show');
       var $tip
         , inside
         , pos
@@ -159,6 +160,7 @@
     }
 
   , hide: function () {
+      showlog('tooltip hide');
       var that = this
         , $tip = this.tip()
 
