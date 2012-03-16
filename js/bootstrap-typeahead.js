@@ -166,10 +166,6 @@
     }
 
   , keyup: function (e) {
-      /* JONMAIM: This is commented because we need to propagate the keyups further. */
-      //e.stopPropagation()
-      //e.preventDefault()
-      
       switch(e.keyCode) {
         case 40: // down arrow
         case 38: // up arrow
@@ -190,8 +186,9 @@
           this.lookup()
       }
 
-      e.stopPropagation()
-      e.preventDefault()
+      /* JONMAIM: This is commented because we need to propagate the keyups further. */
+      //e.stopPropagation()
+      //e.preventDefault()
   }
 
   , keypress: function (e) {

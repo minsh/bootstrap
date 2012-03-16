@@ -34,12 +34,14 @@
     constructor: Tooltip
 
   , init: function ( type, element, options ) {
+      //showlog('tooltip init');
       var eventIn
         , eventOut
 
       this.type = type
       this.$element = $(element)
       this.options = this.getOptions(options)
+      //showlog('opts',this.options);
       this.enabled = true
 
       if (this.options.trigger != 'manual') {
@@ -62,12 +64,14 @@
           show: options.delay
         , hide: options.delay
         }
+        //showlog('options tooltip -->',opts);
       }
 
       return options
     }
 
   , enter: function ( e ) {
+      //showlog('tooltip enter')
       var self = $(e.currentTarget)[this.type](this._options).data(this.type)
 
       if (!self.options.delay || !self.options.delay.show) {
@@ -83,6 +87,7 @@
     }
 
   , leave: function ( e ) {
+      //showlog('tooltip leave')
       var self = $(e.currentTarget)[this.type](this._options).data(this.type)
 
       if (!self.options.delay || !self.options.delay.hide) {
@@ -98,7 +103,6 @@
     }
 
   , show: function () {
-      showlog('tooltip show');
       var $tip
         , inside
         , pos
@@ -106,7 +110,7 @@
         , actualHeight
         , placement
         , tp
-
+      //showlog('tooltip show',$tip);
       if (this.hasContent() && this.enabled) {
         $tip = this.tip()
         this.setContent()
@@ -160,13 +164,14 @@
     }
 
   , hide: function () {
-      showlog('tooltip hide');
       var that = this
         , $tip = this.tip()
+      //showlog('tooltip hide',$tip);
 
       $tip.removeClass('in')
 
       function removeWithAnimation() {
+        //showlog('removeWithAnimation');
         var timeout = setTimeout(function () {
           $tip.off($.support.transition.end).remove()
         }, 500)
@@ -177,8 +182,8 @@
         })
       }
 
-      $.support.transition && this.$tip.hasClass('fade') ?
-        removeWithAnimation() :
+      // $.support.transition && this.$tip.hasClass('fade') ?
+      //   removeWithAnimation() :
         $tip.remove()
     }
 
