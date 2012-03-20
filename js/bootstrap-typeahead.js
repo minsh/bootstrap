@@ -29,6 +29,8 @@
     this.highlighter = this.options.highlighter || this.highlighter
     this.$menu = $(this.options.menu).appendTo('body')
     this.source = this.options.source
+    /* JONMAIM: Addition to get profile pictures associated with each item. */
+    this.picture = this.options.picture
     this.shown = false
     this.listen()
   }
@@ -38,6 +40,7 @@
     constructor: Typeahead
 
   , select: function () {
+      //showlog('typeahead:select');
       var val = this.$menu.find('.active').attr('data-value')
       this.$element.val(val)
       this.$element.change();
@@ -45,6 +48,7 @@
     }
 
   , show: function () {
+      //showlog('typeahead:show');
       var pos = $.extend({}, this.$element.offset(), {
         height: this.$element[0].offsetHeight
       })
@@ -60,12 +64,14 @@
     }
 
   , hide: function () {
+      //showlog('typeahead:hide');
       this.$menu.hide()
       this.shown = false
       return this
     }
 
   , lookup: function (event) {
+      //showlog('typeahead:lookup');
       var that = this
         , items
         , q
@@ -109,26 +115,32 @@
     }
 
   , highlighter: function (item) {
+      //showlog('typeahed:highlighter',item);
       return item.replace(new RegExp('(' + this.query + ')', 'ig'), function ($1, match) {
         return '<strong>' + match + '</strong>'
       })
     }
 
   , render: function (items) {
+      //showlog('typeahead:render',items,'options',this.options);
       var that = this
 
       items = $(items).map(function (i, item) {
-        i = $(that.options.item).attr('data-value', item)
-        i.find('a').html(that.highlighter(item))
+        /* JONMAIM: Find associated picture. */
+        var profilePic = '<span class="profile_pic"><img src="' +that.picture[item]+ '"></span>';
+        i = $(that.options.item).attr('data-value', item);
+        i.find('a').append( profilePic + that.highlighter(item) );
         return i[0]
       })
 
       items.first().addClass('active')
       this.$menu.html(items)
+      //showlog('menu',this.$menu.parent().html());
       return this
     }
 
   , next: function (event) {
+      //showlog('typeahead:next');
       var active = this.$menu.find('.active').removeClass('active')
         , next = active.next()
 
@@ -140,6 +152,7 @@
     }
 
   , prev: function (event) {
+      //showlog('typeahead:prev');
       var active = this.$menu.find('.active').removeClass('active')
         , prev = active.prev()
 
@@ -166,6 +179,7 @@
     }
 
   , keyup: function (e) {
+      //showlog('typeahead:keyup');
       switch(e.keyCode) {
         case 40: // down arrow
         case 38: // up arrow
@@ -192,6 +206,7 @@
   }
 
   , keypress: function (e) {
+      //showlog('typeahead:keypress');
       if (!this.shown) return
 
       switch(e.keyCode) {
@@ -221,6 +236,7 @@
     }
 
   , click: function (e) {
+      //showlog('typeahead:click');
       e.stopPropagation()
       e.preventDefault()
       this.select()
