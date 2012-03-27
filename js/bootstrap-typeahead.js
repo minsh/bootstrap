@@ -256,6 +256,9 @@
       e.stopPropagation()
       e.preventDefault()
       this.select()
+      if (this.options.clickCallback){
+        this.options.clickCallback();
+      }
     }
 
   , mouseenter: function (e) {
