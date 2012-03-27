@@ -122,17 +122,33 @@
     }
 
   , render: function (items) {
-      //showlog('typeahead:render',items,'options',this.options);
       var that = this
+
+      var Spinner = that.options.Spinner;
+      var spinOpts = that.options.spinOpts;
 
       items = $(items).map(function (i, item) {
         /* JONMAIM: Find associated picture. */
-        var profilePic = '<span class="profile_pic"><img src="' +that.picture[item]+ '"></span>';
         i = $(that.options.item).attr('data-value', item);
-        i.find('a').append( profilePic + that.highlighter(item) );
+        i.find('a').append( '<span class="profile_pic"></span>' + that.highlighter(item) );
+
+        var $picSpan = i.find('.profile_pic');
+        if (Spinner !== undefined && spinOpts !== undefined){
+          new Spinner( spinOpts ).spin( $picSpan.get(0) );
+          $picSpan.find('.'+spinOpts.className ).css({left:'50%', top:'50%'});
+        }
+        var img = new Image();
+        img.src = that.picture[item];
+        img.onload = function(){
+          $picSpan.html( $("<img src='" +this.src+ "'>") ); 
+        };
+        img.onerror = function(){
+          showlog('error'); 
+        };
+
         return i[0]
       })
-
+      //showlog('typeahead:render',items,'options',this.options);
       items.first().addClass('active')
       this.$menu.html(items)
       //showlog('menu',this.$menu.parent().html());
