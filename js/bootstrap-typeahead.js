@@ -71,12 +71,12 @@
     }
 
   , lookup: function (event) {
-      //showlog('typeahead:lookup');
       var that = this
         , items
         , q
 
-      this.query = this.$element.val()
+      this.query = $.trim( this.$element.val() )
+      //showlog('typeahead:lookup',this.query);
 
       if (!this.query) {
         return this.shown ? this.hide() : this
