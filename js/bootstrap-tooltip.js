@@ -64,22 +64,21 @@
           show: options.delay
         , hide: options.delay
         }
-        //showlog('options tooltip -->',opts);
       }
 
       return options
     }
 
   , enter: function ( e ) {
-      //showlog('tooltip enter')
       var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+      //showlog('tooltip enter',self.options)
 
       if (!self.options.delay || !self.options.delay.show) {
         self.show()
       } else {
         self.hoverState = 'in'
         setTimeout(function() {
-          if (self.hoverState == 'in') {
+          if (self.hoverState == 'in' && self.enabled) {
             self.show()
           }
         }, self.options.delay.show)
@@ -87,8 +86,8 @@
     }
 
   , leave: function ( e ) {
-      //showlog('tooltip leave')
       var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+      //showlog('tooltip leave',self.options)
 
       if (!self.options.delay || !self.options.delay.hide) {
         self.hide()
