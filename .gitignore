@@ -6,6 +6,7 @@
 *.rej
 *.swo
 *.swp
+*.zip
 *.vi
 *~
 *.sass-cache
@@ -32,6 +33,7 @@ nbproject
 .svn
 .CVS
 .idea
+node_modules
 
 # JONMAIM
 bootstrap
