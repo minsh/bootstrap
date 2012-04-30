@@ -141,6 +141,7 @@
         img.src = that.picture[item];
         img.onload = function(){
           $picSpan.html( $("<img src='" +this.src+ "'>") ); 
+          $picSpan.find('img').show();
         };
         img.onerror = function(){
           showlog('error'); 
