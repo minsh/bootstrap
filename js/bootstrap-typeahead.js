@@ -35,7 +35,7 @@
     this.updater = this.options.updater || this.updater
     this.$menu = $(this.options.menu).appendTo('body')
     this.source = this.options.source
-    /* JONMAIM: Addition to get profile pictures associated with each item. */
+    /* JONMAIM: Addition to get profile pictures associated with each item. */
     this.picture = this.options.picture
     this.shown = false
     this.listen()
@@ -135,26 +135,26 @@
   , render: function (items) {
       var that = this
 
-      var Spinner = that.options.Spinner;
-      var spinOpts = that.options.spinOpts;
+      var Spinner = that.options.Spinner;
+      var spinOpts = that.options.spinOpts;
 
       items = $(items).map(function (i, item) {
         /* JONMAIM: Find associated picture. */
         i = $(that.options.item).attr('data-value', item);
-        i.find('a').append( '<span class="profile_pic"></span>' + that.highlighter(item) );
+        i.find('a').append( '<span class="profile_pic"></span>' + that.highlighter(item) );
 
         var $picSpan = i.find('.profile_pic');
-        if (Spinner !== undefined && spinOpts !== undefined){
+        if (Spinner !== undefined && spinOpts !== undefined){
           new Spinner( spinOpts ).spin( $picSpan.get(0) );
           $picSpan.find('.'+spinOpts.className ).css({left:'50%', top:'50%'});
         }
-        var img = new Image();
-        img.src = that.picture[item];
-        img.onload = function(){
-          $picSpan.html( $("<img src='" +this.src+ "'>") ); 
+        var img = new Image();
+        img.src = that.picture[item];
+        img.onload = function(){
+          $picSpan.html( $("<img src='" +this.src+ "'>") ); 
           $picSpan.find('img').show();
         };
-        img.onerror = function(){
+        img.onerror = function(){
           showlog('error'); 
         };
 
@@ -270,9 +270,9 @@
       e.stopPropagation()
       e.preventDefault()
       this.select()
-      if (this.options.clickCallback){
-        this.options.clickCallback();
-      }
+      // if (this.options.clickCallback){
+      //   this.options.clickCallback();
+      // }
     }
 
   , mouseenter: function (e) {
